@@ -14,8 +14,8 @@ class TodosController < ApplicationController
   end
 
   def update
-    if (@todo = Todo.find_by(id: params[:id])) && @todo.project_id == params[:project_id].to_i
-      @todo.isCompleted = !@todo.isCompleted
+    if (@todo = Todo.find_by(id: params[:id], project_id: params[:project_id]))
+      @todo.toggle(:isCompleted)
       @todo.save
       render json: @todo, status: :ok
     else
